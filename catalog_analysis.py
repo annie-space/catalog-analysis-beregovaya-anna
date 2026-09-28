@@ -1,3 +1,5 @@
+import math
+
 movies = [
     {"title": "The Dune Chronicles", "year": 2021, "genres": {"sci-fi", "drama"},
      "rating": 8.6, "duration_min": 155,
@@ -21,3 +23,19 @@ movies = [
     {"title": "Red Harbor", "year": 2018, "genres": {"action", "thriller"},
      "rating": 7.3, "duration_min": 129, "actors": ["P. Diaz", "T. Chalamet"]},
 ]
+
+def average_rating(movies):
+    """Средняя оценка по каталогу, округлённая до 1 знака."""
+    total = sum(m["rating"] for m in movies)
+    return round(total / len(movies), 1)
+
+
+def catalog_age_stats(movies, current_year=2026):
+    """самый старый, самый новый, средний возраст"""
+    ages = [current_year - m["year"] for m in movies]
+    return (max(ages), min(ages), math.ceil(sum(ages) / len(ages)))
+
+
+def duration_in_hours(minutes):
+    """Минуты - строка"""
+    return f"{minutes // 60}ч {minutes % 60}м"
