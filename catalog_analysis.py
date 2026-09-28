@@ -179,3 +179,32 @@ def iter_high_rated(movies, min_rating=8.0):
 def total_duration_above_seven(movies):
     """Суммарная длительность фильмов с рейтингом > 7"""
     return sum(m["duration_min"] for m in movies if m["rating"] > 7)
+
+
+def build_report(movies):
+    """Полный отчёт"""
+    print("ОТЧЁТ ПО КАТАЛОГУ")
+    print(f"Средний рейтинг: {average_rating(movies)}")
+
+    _, _, avg_age = catalog_age_stats(movies)
+    print(f"Средний возраст фильмов: {avg_age} лет")
+    print()
+
+    print("Топ-3 фильма:")
+    for title, _ in top_n_by_rating(movies, 3):
+        movie = next(m for m in movies if m["title"] == title)
+        print(f"  {format_report_line(movie)}")
+    print()
+
+    print("Фильмов по жанрам:")
+    counts = count_by_genre(movies)
+    for genre, cnt in sorted(counts.items(), key=lambda x: -x[1]):
+        print(f"  {genre} — {cnt}")
+    print()
+
+    genres = sorted(all_genres(movies))
+    print(f"Все жанры каталога: {', '.join(genres)}")
+
+
+if __name__ == "__main__":
+    build_report(movies)
