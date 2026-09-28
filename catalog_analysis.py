@@ -167,3 +167,15 @@ def common_actors(movie1, movie2):
 def genres_only_in_one(movies_a, movies_b):
     """Жанры из movies_a, которых нет в movies_b"""
     return all_genres(movies_a) - all_genres(movies_b)
+
+
+def iter_high_rated(movies, min_rating=8.0):
+    """Генератор: фильмы с рейтингом >= min_rating."""
+    for m in movies:
+        if m["rating"] >= min_rating:
+            yield m
+
+
+def total_duration_above_seven(movies):
+    """Суммарная длительность фильмов с рейтингом > 7"""
+    return sum(m["duration_min"] for m in movies if m["rating"] > 7)
