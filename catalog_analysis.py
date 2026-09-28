@@ -123,3 +123,29 @@ def top_n_by_rating(movies, n=3):
     """Топ-N кортежей (title, rating) по рейтингу"""
     sorted_movies = sorted(movies, key=lambda m: m["rating"], reverse=True)
     return [(m["title"], m["rating"]) for m in sorted_movies[:n]]
+
+
+def count_by_genre(movies):
+    """жанр: количество фильмов, через dict.get()"""
+    counts = {}
+    for m in movies:
+        for genre in m["genres"]:
+            counts[genre] = counts.get(genre, 0) + 1
+    return counts
+
+
+def actor_filmography(movies):
+    """актёр: [названия фильмов]"""
+    filmography = {}
+    for m in movies:
+        for actor in m["actors"]:
+            if actor not in filmography:
+                filmography[actor] = []
+            filmography[actor].append(m["title"])
+    return filmography
+
+
+def high_rated_titles(movies):
+    """title: rating для фильмов с рейтингом выше среднего"""
+    avg = average_rating(movies)
+    return {m["title"]: m["rating"] for m in movies if m["rating"] > avg}
