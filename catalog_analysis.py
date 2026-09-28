@@ -149,3 +149,21 @@ def high_rated_titles(movies):
     """title: rating для фильмов с рейтингом выше среднего"""
     avg = average_rating(movies)
     return {m["title"]: m["rating"] for m in movies if m["rating"] > avg}
+
+
+def all_genres(movies):
+    """Множество всех уникальных жанров"""
+    genres = set()
+    for m in movies:
+        genres |= m["genres"]
+    return genres
+
+
+def common_actors(movie1, movie2):
+    """Актёры, снимавшиеся в обоих фильмах"""
+    return set(movie1["actors"]) & set(movie2["actors"])
+
+
+def genres_only_in_one(movies_a, movies_b):
+    """Жанры из movies_a, которых нет в movies_b"""
+    return all_genres(movies_a) - all_genres(movies_b)
