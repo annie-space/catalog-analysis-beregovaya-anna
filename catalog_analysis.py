@@ -90,3 +90,24 @@ def count_long_movies(movies, threshold=120):
         if m["duration_min"] > threshold:
             count += 1
     return count
+
+
+def normalize_title(title):
+    """Title Case вручную, без str.title()."""
+    words = title.split()
+    return " ".join(w[0].upper() + w[1:] for w in words)
+
+
+def make_slug(title):
+    """С маленькой"""
+    return normalize_title(title).lower().replace(" ", "-")
+
+
+def format_report_line(movie):
+    """Единая строка отчёта"""
+    genres = ", ".join(sorted(movie["genres"]))
+    return (
+        f'"{normalize_title(movie["title"])}" ({movie["year"]}) — '
+        f'{movie["rating"]}/10, {duration_in_hours(movie["duration_min"])}, '
+        f'жанры: {genres}'
+    )
