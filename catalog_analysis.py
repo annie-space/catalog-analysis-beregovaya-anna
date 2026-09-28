@@ -111,3 +111,15 @@ def format_report_line(movie):
         f'{movie["rating"]}/10, {duration_in_hours(movie["duration_min"])}, '
         f'жанры: {genres}'
     )
+
+
+def titles_sorted_by_rating(movies):
+    """Фильмы, по убыванию рейтинга"""
+    sorted_movies = sorted(movies, key=lambda m: m["rating"], reverse=True)
+    return [m["title"] for m in sorted_movies]
+
+
+def top_n_by_rating(movies, n=3):
+    """Топ-N кортежей (title, rating) по рейтингу"""
+    sorted_movies = sorted(movies, key=lambda m: m["rating"], reverse=True)
+    return [(m["title"], m["rating"]) for m in sorted_movies[:n]]
